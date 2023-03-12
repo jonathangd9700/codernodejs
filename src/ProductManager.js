@@ -126,8 +126,7 @@ class ProductManager {
         const getDataId = async() =>{
             const data = await fs.promises.readFile(this.path,'utf-8');
             const dataParse = JSON.parse(data);
-            this.productArr.push(dataParse);
-            const idFind = this.productArr[0].find(element => element.id == id)
+            const idFind = dataParse.find(element=>element.id == id)
             console.log(idFind);
         }
         getDataId();
@@ -139,7 +138,7 @@ const newProduct = new ProductManager();
 // newProduct.addProduct('Banana','A banana',75,"Default",'ABC124',15)
 // newProduct.getProducts();
 
-newProduct.getProductById(0);
+newProduct.getProductById(1);
 
 
 
