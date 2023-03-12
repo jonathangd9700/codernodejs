@@ -2,11 +2,22 @@
   "name": "clase5",
   "version": "1.0.0",
   "description": "",
-  "main": "desafio2.js",
+  "main": "ProductManager.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathangd9700/codernodejs.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathangd9700/codernodejs/issues"
+  },
+  "homepage": "https://github.com/jonathangd9700/codernodejs#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

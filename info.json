@@ -1,1 +1,1 @@
-{"id":0,"title":"Orange","description":"An orange fruit","price":50,"thumbnail":"Default","code":"ABC123","stock":50}{"id":1,"title":"Banana","description":"A banana","price":75,"thumbnail":"Default","code":"ABC124","stock":15}
+[{"id":0,"title":"Orange","description":"An orange fruit","price":50,"thumbnail":"Default","code":"ABC123","stock":50},{"id":1,"title":"Banana","description":"A banana","price":75,"thumbnail":"Default","code":"ABC124","stock":15}]
