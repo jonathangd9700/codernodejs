@@ -26,25 +26,20 @@ class ProductManager {
         addData();
         console.log("Se agregó el producto");
 }
-    getProducts()
+    async getProducts()
     {
-        const getData = async() =>
-            {
-                const data = await fs.promises.readFile(this.path,'utf-8');
-                const dataParse = JSON.parse(data);
-                console.log("Trayendo los productos en formato arreglo");
-                console.log(dataParse);
-            }
-            console.log("Lista de productos \n");
-        getData();
+        const data = await fs.promises.readFile(this.path,'utf-8');
+        const dataParse = JSON.parse(data);
+        return dataParse;
     }
-    getProductById(id)
+    async getProductById(pid)
     {
+        const data = await fs.promises.readFile(this.path,'utf-8');
+        const dataParse = JSON.parse(data);
+        const idFind = dataParse.find(element=>element.id == pid)
+        return idFind;
         const getDataId = async() =>{
-            const data = await fs.promises.readFile(this.path,'utf-8');
-            const dataParse = JSON.parse(data);
-            const idFind = dataParse.find(element=>element.id == id)
-            console.log(idFind);
+
         }
         console.log("Producto encontrado por id \n");
         getDataId()
@@ -81,11 +76,15 @@ const newProduct = new ProductManager();
 
 // newProduct.addProduct('Orange','An orange fruit',50,'Default','ABC123',50)
 // newProduct.addProduct('Banana','A banana',75,"Default",'ABC124',15)
+// newProduct.addProduct('Apple','An apple fruit',25,'Default','ABC125',50)
+// newProduct.addProduct('Lemon','A lemon',15,"Default",'ABC126',15)
 
 //Then you can use methods getProducts, getProductsById and deleteProduct
 
 // newProduct.getProducts();
-// newProduct.getProductById(1);
+
+
+
 // newProduct.deleteProduct(1);
 
 //After you delete a product, now you can check with getProducts
