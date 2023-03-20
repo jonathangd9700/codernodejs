@@ -2,27 +2,35 @@ const ProductManager = require("./ProductManager");
 const newProduct = new ProductManager();
 const express = require('express');
 const app = express();
+const cartRouter = require('./routes/cart.routes');
+const productsRouter = require('./routes/products.routes');
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const port = 8080;
 
-app.get('/products', async (req, res) => {
+app.use('/api/carts',cartRouter);
 
-    const products = await newProduct.getProducts();
-    const {limit} = req.query;
-    const queries = {
-        limit
-    }
+app.use('/api/products',productsRouter);
 
-    if (limit == "") {
-       return res.json({product: products})
-    }
-    if (limit != "") {
-        const resultQueries = products.slice(0,queries.limit);
-        res.json({limitList : resultQueries});
-    }
 
-  })
+// app.get('/products', async (req, res) => {
+
+//     const products = await newProduct.getProducts();
+//     const {limit} = req.query;
+//     const queries = {
+//         limit
+//     }
+
+//     if (limit == "") {
+//        return res.json({product: products})
+//     }
+//     if (limit != "") {
+//         const resultQueries = products.slice(0,queries.limit);
+//         res.json({limitList : resultQueries});
+//     }
+
+//   })
 
 app.get('/products/:pid',async(req,res)=>{
     const {pid} = req.params;

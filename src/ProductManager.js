@@ -18,13 +18,13 @@ class ProductManager {
         this.productArr.push(product);
         console.log("===============");
         
-    const addData = async() =>
-        {
-        const dataStr = JSON.stringify(this.productArr)
-        const data = await fs.promises.writeFile(this.path,dataStr); 
-        }
-        addData();
-        console.log("Se agregó el producto");
+    // const addData = async() =>
+    //     {
+    //     const dataStr = JSON.stringify(this.productArr)
+    //     const data = await fs.promises.writeFile(this.path,dataStr); 
+    //     }
+    //     addData();
+    //     console.log("Se agregó el producto");
 }
     async getProducts()
     {
@@ -38,11 +38,11 @@ class ProductManager {
         const dataParse = JSON.parse(data);
         const idFind = dataParse.find(element=>element.id == pid)
         return idFind;
-        const getDataId = async() =>{
+        // const getDataId = async() =>{
 
-        }
-        console.log("Producto encontrado por id \n");
-        getDataId()
+        // }
+        // console.log("Producto encontrado por id \n");
+        // getDataId()
     }
     deleteProduct(id)
     {
