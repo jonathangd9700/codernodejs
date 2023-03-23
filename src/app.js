@@ -32,11 +32,11 @@ app.use('/api/products',productsRouter);
 
 //   })
 
-app.get('/products/:pid',async(req,res)=>{
-    const {pid} = req.params;
-    const products = await newProduct.getProductById(pid);
-    res.send({productos: products});
-})
+// app.get('/products/:pid',async(req,res)=>{
+//     const {pid} = req.params;
+//     const products = await newProduct.getProductById(pid);
+//     res.send({productos: products});
+// })
 
 app.listen(port,()=>{
     console.log(`Server listening at port ${port}`);

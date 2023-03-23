@@ -1,47 +1,71 @@
 const {Router} = require('express');
 const router = Router();
-const products = [];
-let idProduct = 0;
+const productManager = require('../ProductManager')
+const newProduct = new productManager();
+
 
 router.get('/', (req, res) => {
     const {limit} = req.query;
     const queries = {
         limit
     }
-
-    if (limit == "") {
-       return res.json({product: products})
-    }
-    if (limit != "") {
-        const resultQueries = products.slice(0,queries.limit);
-        res.json({limitList : resultQueries});
-    }
-
+    const showProducts = newProduct.getProducts(limit);
+    // if (limit == "") {
+    //    return res.json({product: products})
+    // }
+    // if (limit != "") {
+    //     const resultQueries = products.slice(0,queries.limit);
+    //     res.json({limitList : resultQueries});
+    // }
+    res.status(200).json({message: showProducts})
   })
 
   router.get('/:pid',(req,res)=>{
     const {pid} = req.params;
-    const idFind = products.find(element=>element.id == pid)
-    res.send({message: idFind});
+    const pidFind = newProduct.getProductById(pid);
+    // const idFind = products.find(element=>element.id == pid)
+    res.json({message: pidFind});
 })
 
 router.post('/',(req,res)=>{
-    const {title, description,code,price,status,stock,category,thumbnails}=req.body
-    const newProduct = {id: idProduct, title,description,code,price,status: true,stock,category,thumbnails};
-    newProduct.id = idProduct++;
-    products.push(newProduct);
-    res.json({message: "producto agregado"});
+    const {
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        thumbnail} = req.body;
+        const product = {title,description,code,price,status: true,stock,category,thumbnail
+        }
+        try{
+            newProduct.addProduct(product);
+            res.status(200).json({message: `producto agregado con exito`,products:product});
+        }
+        catch{
+            console.log("error");
+        }
+
 })
 router.delete('/:pid',(req,res)=>{
+
     const {pid} = req.params;
-    const idIndex = products.findIndex(element =>element.id == pid);
-    if (idIndex!= -1) {
-        products.splice(idIndex,1);
-       res.json({message: 'Producto eliminado'});
+    newProduct.deleteProduct(pid);
+    // const idIndex = products.findIndex(element =>element.id == pid);
+    try {
+        res.status(200).json({message: `producto con id: ${pid} eliminado con exito`});
+    } catch (error) {
+        res.status(400).json({message: `producto con id: ${pid} no se encuentra`});
+        console.log(error);
     }
-    else{
-        res.json({message: 'Producto no encontrado'})
-    }
+    // if (idIndex!= -1) {
+    //     products.splice(idIndex,1);
+    //    res.json({message: 'Producto eliminado'});
+    // }
+    // else{
+    //     res.json({message: 'Producto no encontrado'})
+    // }
 })
 
 

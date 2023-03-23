@@ -1,23 +1,26 @@
 const fs = require('fs');
-const path = ('./info.json');
+const path = ('./products.json');
 class ProductManager {
-    productArr = []
     constructor(){
         this.path = path
     }
-    addProduct(title,description,price,thumbnail,code,stock){
-        const product = {
-            id: this.productArr.length,
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock
-        }
-        this.productArr.push(product);
+    addProduct(product){
+        // const product = {
+        //     id: idProduct,
+        //     title,
+        //     description,
+        //     price,
+        //     thumbnail,
+        //     code,
+        //     stock
+        // }
+        const products = fs.readFileSync('./products.json');
+        const dataProduct = JSON.parse(products)
+        dataProduct.push(product);
+
         console.log("===============");
-        
+        const dataStr = JSON.stringify(dataProduct);
+        const dataWrite = fs.writeFileSync(this.path,dataStr);
     // const addData = async() =>
     //     {
     //     const dataStr = JSON.stringify(this.productArr)
@@ -26,18 +29,35 @@ class ProductManager {
     //     addData();
     //     console.log("Se agregó el producto");
 }
-    async getProducts()
+    getProducts(limit)
     {
-        const data = await fs.promises.readFile(this.path,'utf-8');
+        const data = fs.readFileSync(this.path,'utf-8');
         const dataParse = JSON.parse(data);
-        return dataParse;
+        if (limit != "") {
+            const resultQueries = dataParse.slice(0,limit);
+//         res.json({limitList : resultQueries});
+            console.log(`Mostrando limite de ${limit} productos`);
+            return resultQueries;
+        }
+        if (limit== " ") {
+            console.log("Mostrando todos los productos");
+            return dataParse;
+        }
+
     }
-    async getProductById(pid)
+    getProductById(pid)
     {
-        const data = await fs.promises.readFile(this.path,'utf-8');
+        const data = fs.readFileSync(this.path,'utf-8');
         const dataParse = JSON.parse(data);
         const idFind = dataParse.find(element=>element.id == pid)
-        return idFind;
+        if (idFind != undefined) {
+            console.log(`Producto con id: ${pid} encontrado`);
+            return idFind;
+        }
+        else{
+            console.log((`El producto no se encuentra`));
+        }
+        
         // const getDataId = async() =>{
 
         // }
@@ -46,15 +66,15 @@ class ProductManager {
     }
     deleteProduct(id)
     {
-        const getDataId = async() =>{
-            const data = await fs.promises.readFile(this.path,'utf-8');
+        // const getDataId = async() =>{
+            const data = fs.readFileSync(this.path,'utf-8');
             const dataParse = JSON.parse(data);
             const idIndex = dataParse.findIndex(e => e.id == id);
             if(idIndex!= -1){
                 dataParse.splice(idIndex);
                 const dataDeleted = JSON.stringify(dataParse);
                 console.log('Producto eliminado');
-                return await fs.promises.writeFile(this.path,dataDeleted);
+                return fs.writeFileSync(this.path,dataDeleted);
             }
             else
             {
@@ -62,15 +82,15 @@ class ProductManager {
             }
 
 
-        }
-        getDataId()
+        // }
+        // getDataId()
     }
 
 }
 
 
 
-const newProduct = new ProductManager();
+// const newProduct = new ProductManager();
 // First you need to add products
 //=========================================================
 
