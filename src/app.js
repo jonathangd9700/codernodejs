@@ -1,5 +1,5 @@
 const ProductManager = require("./ProductManager");
-const newProduct = new ProductManager();
+// const newProduct = new ProductManager();
 const express = require('express');
 const app = express();
 const cartRouter = require('./routes/cart.routes');
