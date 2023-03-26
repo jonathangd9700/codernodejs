@@ -31,9 +31,9 @@ class CartManager {
         const dataProductObj = JSON.parse(dataProduct);
         const cartFind = dataCartObj.find(cart => cart.cid == cid);
         const prodFind = dataProductObj.find(prod => prod.id == pid)
-        const cartProductIndex = cartFind.products.findIndex(prod => prod.id == pid)
+        const cartProductIndex = cartFind.products.findIndex(prod => prod.id == prodFind)
         console.log(cartProductIndex);
-        cartFind.products.push({product: prodFind});
+        cartFind.products.push({product: prodFind.id});
         fs.writeFileSync(path,JSON.stringify(dataCartObj));
 
         // Porque al hacer push en cartFind.Products, me está afectando al dataCartObj? Es decir, al hacer el fs.write se envía actualizado no entiendo como. No debería hacerle un push directamente al dataCartObj? Lo probé y no entiendo porqué no funciona. 
