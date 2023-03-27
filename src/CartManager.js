@@ -31,9 +31,17 @@ class CartManager {
         const dataProductObj = JSON.parse(dataProduct);
         const cartFind = dataCartObj.find(cart => cart.cid == cid);
         const prodFind = dataProductObj.find(prod => prod.id == pid)
-        const cartProductIndex = cartFind.products.findIndex(prod => prod.id == prodFind)
-        console.log(cartProductIndex);
-        cartFind.products.push({product: prodFind.id});
+        const cartProductIndex = cartFind.products.findIndex(prod => prod.product == pid)
+        //Obtengo el index del array products, el elemento product que es el array, donde contiene el ID del producto, sea igual al PID que le paso por parametro. Si no devuelve -1 (Es decir que lo encuentra), incrementa el campo quantity, pero si no lo encuentra envia el id del producto encontrado y crea el key quantity con value 1 para luego ir incrementandolo
+        if(cartProductIndex !== -1){
+            cartFind.products[cartProductIndex].quantity++
+          }else{
+            cartFind.products.push({
+                product: prodFind.id,
+                quantity: 1
+            })
+          }
+
         fs.writeFileSync(path,JSON.stringify(dataCartObj));
 
         // Porque al hacer push en cartFind.Products, me está afectando al dataCartObj? Es decir, al hacer el fs.write se envía actualizado no entiendo como. No debería hacerle un push directamente al dataCartObj? Lo probé y no entiendo porqué no funciona. 
