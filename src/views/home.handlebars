@@ -1,0 +1,38 @@
+<style>
+body{
+  background-color: aliceblue;
+    }
+.product-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.productItem{
+  background-color: rgba(224, 169, 169, 0.555);
+  text-align: center;
+  width: fit-content;
+  padding: 5px;
+}
+ul{
+    list-style-type: none;
+}
+li{
+    color: cadetblue;
+    font-weight: bold;
+}
+</style>
+
+<h1>Lista de productos</h1>
+<div class="productList">
+{{#each showProducts}}
+    <ul class="productItem">
+        <li>Nombre: {{this.title}}</li>
+        <li>Precio: {{this.price}}</li>
+        <li>Código: {{this.code}}</li>
+        <li>Id: {{this.id}}</li>
+    </ul>
+    </div>
+{{/each}}
+</div>
+
+

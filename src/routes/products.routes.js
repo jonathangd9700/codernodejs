@@ -4,10 +4,14 @@ const productManager = require('../ProductManager')
 const newProduct = new productManager();
 const fs = require('fs');
 
+const PathCss = 'home.css'
+
 router.get('/', (req, res) => {
     const {limit} = req.query;
     const showProducts = newProduct.getProducts(limit);
-    res.status(200).json({message: showProducts})
+    // const showProductsStr = JSON.stringify(showProducts)
+    res.status(200).render('home.handlebars', {showProducts, path:PathCss});
+    // res.status(200).json({message: showProducts})
   })
 
   router.get('/:pid',(req,res)=>{
